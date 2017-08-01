@@ -1,3 +1,5 @@
+-- Based on https://medium.com/@lhartikk/a-blockchain-in-200-lines-of-code-963cc1cc0e54
+
 local component = require('component')
 local data = assert(require('data')) -- requires a 'data' loot disk
 local datacard = assert(component.data) -- data card should be available
