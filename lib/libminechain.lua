@@ -4,7 +4,7 @@ local component = require('component')
 local data = assert(require('data')) -- requires a 'data' loot disk
 local datacard = assert(component.data) -- data card should be available
 
------------ MineChain object
+----------- MineChain library  object
 
 minechain = {}
 
@@ -32,7 +32,7 @@ function Block.getGenesisBlock()
                    "361e406a85fcc54d358fa51b11d50e1517a5c2e97d2cd0b1163fd7e8a1f3367d")
 end
 
-function Block:calculateHash()
+function Block.calculateHash(self)
   local state = self.index..self.previousHash..self.timestamp..self.data
   return string.lower(data.toHex(datacard.sha256(state)))
 end
