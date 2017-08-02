@@ -44,7 +44,7 @@ lib.minechain[1] = getGenesisBlock()
 -------------------------------------------
 
 function lib.getLatestBlock()
-  return minechain[#minechain]
+  return lib.minechain[#(lib.minechain)]
 end
 
 function lib.calculateHash(index, previousHash, timestamp, data)
