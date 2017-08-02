@@ -38,9 +38,14 @@ end
 
 ----------- minechain object --------------
 
-lib.minechain = table.pack(lib.getGenesisBlock())
+lib.minechain = {}
+lib.minechain[1] = getGenesisBlock()
 
 -------------------------------------------
+
+function lib.getLatestBlock()
+  return minechain[#minechain]
+end
 
 function lib.calculateHash(index, previousHash, timestamp, data)
   local state = index..previousHash..timestamp..data
@@ -55,21 +60,18 @@ function lib.generateNextBlock(blockData)
   return Block.new(nextIndex, previousBlock.hash, nextTimestamp, blockData, nextHash)
 end
 
-function lib.addBlock(block)
-
+function lib.addBlock(blockData)
+  nextBlock = lib.generateNextBlock(blockData)
+  lib.minechain[#(lib.minechain) + 1] = nextBlock
+  return nextBlock
 end
 
 function lib.dump()
-  for k, v in ipairs(minechain) do
+  for k, v in ipairs(lib.minechain) do
     print('-------------')
     print(k, v)
   end
 end
-
-function lib.getLatestBlock()
-  return minechain[minechain.n]
-end
-
 
 ------------- end of module --------------
 lib.Block = Block
