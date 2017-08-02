@@ -47,8 +47,8 @@ function lib.getLatestBlock()
   return lib.minechain[#(lib.minechain)]
 end
 
-function lib.calculateHash(index, previousHash, timestamp, data)
-  local state = index..previousHash..timestamp..data
+function lib.calculateHash(index, previousHash, timestamp, blockData)
+  local state = index..previousHash..timestamp..blockData
   return string.lower(data.toHex(datacard.sha256(state)))
 end
 
@@ -56,7 +56,7 @@ function lib.generateNextBlock(blockData)
   local previousBlock = lib.getLatestBlock()
   local nextIndex = previousBlock.index + 1
   local nextTimestamp = math.floor(os.time())
-  local nextHash = calculateHash(nextIndex, previousBlock.hash, nextTimestamp, blockData)
+  local nextHash = lib.calculateHash(nextIndex, previousBlock.hash, nextTimestamp, blockData)
   return Block.new(nextIndex, previousBlock.hash, nextTimestamp, blockData, nextHash)
 end
 
@@ -66,10 +66,14 @@ function lib.addBlock(blockData)
   return nextBlock
 end
 
+function lib.dumpBlock(block)
+  return block.index..block.data..block.hash
+end
+
 function lib.dump()
   for k, v in ipairs(lib.minechain) do
     print('-------------')
-    print(k, v)
+    print(k, lib.dumpBlock(v))
   end
 end
 
