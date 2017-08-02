@@ -67,7 +67,7 @@ function lib.addBlock(blockData)
 end
 
 function lib.dumpBlock(block)
-  return block.index..block.data..block.hash
+  return string.format("%d %s\n\t%s"block.index, block.data, block.hash)
 end
 
 function lib.dump()
