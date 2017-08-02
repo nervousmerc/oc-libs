@@ -8,11 +8,8 @@ local datacard = assert(component.data) -- data card should be available
 
 lib = {}
 
------------ minechain object --------------
-
-lib.minechain = table.pack(lib.getGenesisBlock())
-
 ----------- Block class -------------------
+
 local Block = {}
 
 local blockMT = {__index = Block}
@@ -27,16 +24,23 @@ function Block.new(index, previousHash, timestamp, data, hash)
   o.data = data
   o.hash = hash
   return o
-end 
+end
+
 ----------- end Block class -----------------------
 
-function lib.getGenesisBlock()
+function getGenesisBlock()
   return Block.new(0,
                    "0",
                    0,
                    "dixitque Deus: fiat lux, et facta est lux.",
                    "361e406a85fcc54d358fa51b11d50e1517a5c2e97d2cd0b1163fd7e8a1f3367d")
 end
+
+----------- minechain object --------------
+
+lib.minechain = table.pack(lib.getGenesisBlock())
+
+-------------------------------------------
 
 function lib.calculateHash(index, previousHash, timestamp, data)
   local state = index..previousHash..timestamp..data
