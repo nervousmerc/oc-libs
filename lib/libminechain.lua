@@ -1,7 +1,7 @@
 -- Based on https://medium.com/@lhartikk/a-blockchain-in-200-lines-of-code-963cc1cc0e54
 
 local component = require('component')
-local data = assert(require('data')) -- requires a 'data' loot disk
+local data = require('data') -- requires a 'data' loot disk
 local datacard = assert(component.data) -- data card should be available
 
 ----------- Library  object ---------------
@@ -20,7 +20,6 @@ function Block.new(index, previousHash, timestamp, data, hash)
   o.index = index
   o.previousHash = previousHash
   o.timestamp = timestamp
-
   o.data = data
   o.hash = hash
   return o
@@ -67,7 +66,7 @@ function lib.addBlock(blockData)
 end
 
 function lib.dumpBlock(block)
-  return string.format("%d %s\n\t%s"block.index, block.data, block.hash)
+  return string.format("%d %s\n\t%s", block.index, block.data, block.hash)
 end
 
 function lib.dump()
